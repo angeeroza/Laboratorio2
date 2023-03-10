@@ -46,6 +46,8 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         } else if (size == 1){
             first = null;
             last = null;
+        } else {
+            throw new DoubleEndedQueueException("No puedes eliminar elementos de una lista vacia");
         }
         size--;
     }
@@ -58,6 +60,8 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         } else if (size == 1){
             first = null;
             last = null;
+        } else {
+            throw new DoubleEndedQueueException("No puedes eliminar elementos de una lista vacia");
         }
         size--;
     }

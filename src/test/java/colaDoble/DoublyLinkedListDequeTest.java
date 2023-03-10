@@ -81,6 +81,15 @@ class DoublyLinkedListDequeTest {
         }
 
         @Test
+        @DisplayName("Test case for the deleteFirst() method when size = 0")
+        public void deleteFirstZeroElements() {
+            assertEquals(0, list.size());
+            assertThrows(DoubleEndedQueueException.class, () ->  list.deleteFirst());
+            assertNull(list.getFirst());
+            assertNull(list.getLast());
+        }
+
+        @Test
         @DisplayName("Test case for the deleteLast() method when size > 1")
         public void deleteLastMoreOneElement() {
             list.append(1);
@@ -94,9 +103,18 @@ class DoublyLinkedListDequeTest {
         @DisplayName("Test case for the deleteLast() method when size = 1")
         public void deleteLastOneElement() {
             list.prepend(1);
-            assertEquals(1, list.size());
+            assertEquals(1,      list.size());
             list.deleteLast();
             assertEquals(0, list.size());
+            assertNull(list.getFirst());
+            assertNull(list.getLast());
+        }
+
+        @Test
+        @DisplayName("Test case for the deleteLast() method when size = 0")
+        public void deleteLastZeroElements() {
+            assertEquals(0, list.size());
+            assertThrows(DoubleEndedQueueException.class, () ->  list.deleteLast());
             assertNull(list.getFirst());
             assertNull(list.getLast());
         }
