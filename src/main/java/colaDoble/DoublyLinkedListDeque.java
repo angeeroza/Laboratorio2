@@ -141,8 +141,38 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         }
     }
 
+    /**
+     * Sorts the deque in non-descending order according to the order induced by the specified comparator.
+     *
+     * @param comparator the comparator to determine the order of the deque
+     */
     @Override
     public void sort(Comparator<? super T> comparator) {
+        if (size <= 1) {
+            return;
+        }
 
+        DequeNode<T> current = first.getNext();
+        while (current != null) {
+            DequeNode<T> insert = current;
+            T insertValue = insert.getItem();
+
+            DequeNode<T> node = current.getPrevious();
+            while (node != null && comparator.compare(insertValue, node.getItem()) < 0) {
+                node.getNext().setItem(node.getItem());
+                node = node.getPrevious();
+            }
+
+            if (node == null) {
+                first.setItem(insertValue);
+            } else {
+                node.getNext().setItem(insertValue);
+            }
+            insert.setItem(null);
+            current = current.getNext();
+        }
     }
+
+
+
 }
