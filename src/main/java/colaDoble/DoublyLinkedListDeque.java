@@ -1,5 +1,7 @@
 package colaDoble;
 
+import java.util.Comparator;
+
 public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     private DequeNode<T> first;
@@ -87,5 +89,60 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public T get(int index) {
+        if(index > size){
+            throw new DoubleEndedQueueException("El indice indicado es mayor que el tamaño de la lista");
+        } else {
+            DequeNode aux = first;
+            for(int i = 0; i < index; i++){
+                aux = aux.getNext();
+            }
+            return (T) aux.getItem();
+        }
+
+    }
+
+    @Override
+    public boolean contains(T value) {
+        if(value == null){
+            throw new DoubleEndedQueueException("El valor a buscar no puede ser null");
+        } else {
+            DequeNode aux = first;
+            for(int i = 0; i < size; i++){
+                if(aux.getItem() == value){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public void remove(T value) {
+        if(value == null){
+            throw new DoubleEndedQueueException("El valor a buscar no puede ser null");
+        } else {
+            if(first.getItem() == value){
+                first = first.getNext();
+            }
+            if(last.getItem() == value){
+                last = last.getPrevious();
+            }
+            DequeNode aux = first;
+            for(int i = 0; i < size; i++){
+                if(aux.getItem() == value){
+                    aux.getPrevious().setNext(aux.getNext());
+                    aux.getNext().setPrevious(aux.getPrevious());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void sort(Comparator<? super T> comparator) {
+
     }
 }
