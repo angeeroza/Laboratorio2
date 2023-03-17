@@ -56,7 +56,7 @@ class DoublyLinkedListDequeTest {
     }
 
     @Nested
-    @DisplayName("Test cases for deletes methods")
+    @DisplayName("Test cases for both delete methods")
     class TestCasesForDeleteMethod {
 
         @Test
@@ -269,7 +269,7 @@ class DoublyLinkedListDequeTest {
         }
 
         @Test
-        @DisplayName("When the size is nos valid")
+        @DisplayName("When the size is not valid")
         public void sortThrowException() {
             list.append(1);
             assertThrows(DoubleEndedQueueException.class, () ->  list.sort(Integer::compareTo));
