@@ -1,0 +1,3 @@
+https://github.com/angeeroza/Laboratorio2/tree/main
+
+Este es el enlace al repositorio de Git donde está el proyecto.
