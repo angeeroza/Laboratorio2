@@ -56,7 +56,7 @@ class DoublyLinkedListDequeTest {
     }
 
     @Nested
-    @DisplayName("Test cases for deletes methods")
+    @DisplayName("Test cases for both delete methods")
     class TestCasesForDeleteMethod {
 
         @Test
@@ -134,6 +134,147 @@ class DoublyLinkedListDequeTest {
             list.deleteFirst();
             assertEquals(2, list.size());
         }
+    }
+
+    @Nested
+    @DisplayName("Test cases for the remove() method")
+    class TestCasesForRemoveMethod {
+
+        @Test
+        @DisplayName("When the value is the first")
+        public void removeFirst() {
+            list.append(1);
+            list.append(2);
+            list.remove(1);
+            assertFalse(list.contains(1));
+            assertEquals(1, list.size());
+            assertEquals(list.getFirst().getItem(), 2);
+        }
+
+        @Test
+        @DisplayName("When the value is the last")
+        public void removeLast() {
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            list.remove(3);
+            assertFalse(list.contains(3));
+            assertEquals(2, list.size());
+            assertEquals(list.getLast().getItem(), 2);
+        }
+
+        @Test
+        @DisplayName("When the value is the middle")
+        public void removeMiddleNode() {
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            list.remove(2);
+            assertFalse(list.contains(2));
+            assertEquals(2, list.size());
+            assertEquals(list.getFirst().getNext().getItem(), 3);
+            assertEquals(list.getLast().getPrevious().getItem(), 1);
+        }
+
+        @Test
+        @DisplayName("When the value is null")
+        public void removeThrowException() {
+            list.prepend(1);
+            list.prepend(2);
+            assertThrows(DoubleEndedQueueException.class, () ->  list.remove(null));
+        }
+    }
+
+    @Nested
+    @DisplayName("Test cases for the contains() method")
+    class TestCasesForContainsMethod {
+
+        @Test
+        @DisplayName("When the value is in list")
+        public void containsTrue() {
+            list.append(1);
+            list.prepend(2);
+            assertTrue(list.contains(1));
+        }
+
+        @Test
+        @DisplayName("When the value is not in list")
+        public void containsFalse() {
+            list.prepend(1);
+            list.append(2);
+            assertFalse(list.contains(3));
+        }
+
+        @Test
+        @DisplayName("When the value is not in list")
+        public void containsThrowException() {
+            list.prepend(1);
+            list.prepend(2);
+            assertThrows(DoubleEndedQueueException.class, () ->  list.contains(null));
+        }
+
+    }
+
+    @Nested
+    @DisplayName("Test cases for the get() method")
+    class TestCasesForGetMethod {
+
+        @Test
+        @DisplayName("When the index is valid")
+        public void getIndexValid() {
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            assertEquals(1, list.get(0));
+            assertEquals(2, list.get(1));
+            assertEquals(3, list.get(2));
+        }
+
+        @Test
+        @DisplayName("When the index is not valid")
+        public void getThrowException() {
+            list.prepend(1);
+            list.prepend(2);
+            assertThrows(DoubleEndedQueueException.class, () ->  list.get(5));
+        }
+
+    }
+
+    @Nested
+    @DisplayName("Test cases for the sort() method")
+    class TestCasesForSortMethod {
+
+        @Test
+        @DisplayName("When the list is messy")
+        public void sortListMessy() {
+            list.append(3);
+            list.append(2);
+            list.append(1);
+            list.sort(Integer::compareTo);
+            assertEquals(1,list.getFirst().getItem());
+            assertEquals(2,list.getFirst().getNext().getItem());
+            assertEquals(3,list.getLast().getItem());
+        }
+
+        @Test
+        @DisplayName("When the list is ordered")
+        public void sortListOrdered() {
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            list.sort(Integer::compareTo);
+            assertEquals(1,list.getFirst().getItem());
+            assertEquals(2,list.getFirst().getNext().getItem());
+            assertEquals(3,list.getLast().getItem());
+        }
+
+        @Test
+        @DisplayName("When the size is not valid")
+        public void sortThrowException() {
+            list.append(1);
+            assertThrows(DoubleEndedQueueException.class, () ->  list.sort(Integer::compareTo));
+        }
+
     }
 
 
